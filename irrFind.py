@@ -18,7 +18,6 @@ def genNpvCalcuator(cashFlowVec: List[float], cashFlowPeriod: int, compoundPerio
 def irrFind(cashFlowVec: List[float], cashFlowPeriod: int, compoundPeriod: int):
     npvCalcuator = genNpvCalcuator(cashFlowVec, cashFlowPeriod, compoundPeriod)
     r = fsolve(npvCalcuator, 0.01)
-    print(npvCalcuator(r[0]))
     return r[0]
 
 
