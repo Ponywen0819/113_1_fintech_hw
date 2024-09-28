@@ -1,5 +1,5 @@
 from typing import List
-from scipy.optimize import fsolve
+from scipy.optimize import fsolve, root
 
 
 def genNpvCalcuator(cashFlowVec: List[float], cashFlowPeriod: int, compoundPeriod: int):
@@ -17,12 +17,16 @@ def genNpvCalcuator(cashFlowVec: List[float], cashFlowPeriod: int, compoundPerio
 
 def irrFind(cashFlowVec: List[float], cashFlowPeriod: int, compoundPeriod: int):
     npvCalcuator = genNpvCalcuator(cashFlowVec, cashFlowPeriod, compoundPeriod)
-    r = fsolve(npvCalcuator, 0.01)
-    return r[0]
+    res = root(npvCalcuator, 0.01)
+    min_num = 1
+    for num in res['x']:
+        if  num < min_num:
+            min_num = num
+    return min_num * ( 12 / cashFlowPeriod)
 
 
 if __name__ == "__main__":
-    input_line = "-16320 -16157 -16157 -16157 -16157 -16157 100000 12 12"
+    input_line = "100 -210 130 -250 120 -220 400 12 1"
     input_numbers = [int(x) for x in input_line.strip().split()]
     cashFlowPeriod, compoundPeriod = input_numbers[-2:]
     cashFlowVec = input_numbers[:-2]
