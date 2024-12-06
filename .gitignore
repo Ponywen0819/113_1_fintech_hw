@@ -10,3 +10,8 @@ readme.txt
 rrEstimate.py
 
 test.py
+
+.DS_Store
+__pycache__/
+
+*.zip
